@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Traffic Flow Analyzer - Gunvanth Madabattula</title>
+  <style>
+    /* Reset & Base */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top left, #003f88 0%, transparent 50%),
+                  radial-gradient(circle at bottom right, #001219 0%, transparent 50%),
+                  linear-gradient(135deg, #000814 0%, #001d3d 60%, #003566 100%);
+      color: #f5f5f5;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Floating Background with Blue/Teal Orbs */
+    .background-elements { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+    .floating-orb { position: absolute; border-radius: 50%; filter: blur(40px); animation: float 6s ease-in-out infinite; mix-blend-mode: screen; opacity: 0.4;}
+    .orb-1 { width: 320px; height: 320px; background: radial-gradient(circle, #34a0a4, #168aad); top: -160px; right: -160px; animation-delay: 0s; }
+    .orb-2 { width: 320px; height: 320px; background: radial-gradient(circle,#003566,#34a0a4); bottom: -160px; left: -160px; animation-delay: 2s; }
+    .orb-3 { width: 240px; height: 240px; background: radial-gradient(circle, #001d3d, #0096c7); top: 160px; left: 50%; animation-delay: 4s; }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0) scale(1); opacity: 0.35; }
+      50% { transform: translateY(-20px) scale(1.1); opacity: 0.55; }
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+    /* Hero */
+    .hero-section { text-align: center; padding: 80px 0; }
+    .hero-icon {
+      width: 80px; height: 80px; border-radius: 24px; margin: 0 auto 32px;
+      background: linear-gradient(135deg, #34a0a4, #168aad);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.3s ease; cursor: pointer;
+    }
+    .hero-icon:hover { transform: scale(1.1) rotate(5deg); }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 900; margin-bottom: 24px;
+      background: linear-gradient(135deg, #ffffff, #34a0a4, #168aad);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+      line-height: 1.1;
+    }
+    .hero-description { font-size: 1.25rem; color: #e0f4fd; max-width: 800px; margin: 0 auto; }
+
+    /* Glass card */
+    .glass-card {
+      background: rgba(255,255,255,0.08); backdrop-filter: blur(20px);
+      border-radius: 24px; border: 1px solid rgba(255,255,255,0.15);
+      padding: 40px; margin-bottom: 80px; transition: all 0.5s ease;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+    }
+    .glass-card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 35px 60px -12px rgba(0,60,100,0.4); }
+
+    .section-title {
+      font-size: 2.5rem; font-weight: 800; margin-bottom: 32px;
+      background: linear-gradient(135deg, #34a0a4, #168aad);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+      text-align: center;
+    }
+    .section-content { font-size: 1.125rem; color: #d1d5db; line-height: 1.8; margin-bottom: 32px; }
+    .highlight { color: #34a0a4; font-weight: 600; }
+
+    /* Features grid */
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-bottom: 80px; }
+    .feature-card {
+      background: rgba(255,255,255,0.08); backdrop-filter: blur(20px);
+      border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);
+      padding: 32px; transition: all 0.3s ease; cursor: pointer;
+    }
+    .feature-card:hover { transform: translateY(-10px) scale(1.05); border-color: #34a0a4; box-shadow: 0 20px 50px -12px rgba(52,160,164,0.35); }
+    .feature-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; color: #34a0a4; }
+    .feature-description { color: #e0f4fd; font-size: 0.95rem; }
+
+    /* Tech stack badges */
+    .tech-stack { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-bottom: 80px; }
+    .tech-badge {
+      background: rgba(255,255,255,0.08); backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.15); border-radius: 50px;
+      padding: 12px 24px; display: flex; align-items: center; gap: 12px;
+      transition: all 0.3s ease; cursor: pointer; color: #f5f5f5;
+    }
+    .tech-badge:hover { transform: scale(1.1); box-shadow: 0 10px 25px -5px rgba(52,160,164,0.4); }
+    .tech-dot { width: 12px; height: 12px; border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.5;} }
+    .dot-python{background:#34a0a4;} .dot-opencv{background:#168aad;} .dot-flask{background:#003566;} .dot-ml{background:#0096c7;}
+
+    /* Back button only */
+    .action-buttons { display: flex; justify-content: center; margin: 80px 0; }
+    .btn {
+      padding: 16px 32px; border-radius: 16px; text-decoration: none; font-weight: 600;
+      transition: all 0.3s ease; border: none; cursor: pointer; color:white;
+    }
+    .btn-outline { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); }
+    .btn-outline:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 10px 25px rgba(52,160,164,0.3); }
+
+    /* Badge */
+    .security-badge { text-align: center; margin-top: 40px; }
+    .security-badge-content {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: rgba(52,160,164,0.2); border: 1px solid rgba(52,160,164,0.3);
+      border-radius: 50px; padding: 12px 24px; font-weight: 500; color: #34a0a4;
+    }
+
+    /* Fade-in Scroll Animation (same as index) */
+    .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="background-elements">
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+  </div>
+
+  <div class="container">
+    <!-- Hero -->
+    <div class="hero-section fade-in">
+      <div class="hero-icon">🚦</div>
+      <h1 class="hero-title">Smart Traffic Flow Analyzer</h1>
+      <p class="hero-description">AI-powered system for real-time traffic monitoring and congestion reduction through intelligent signal control</p>
+    </div>
+
+    <!-- Overview -->
+    <div class="glass-card fade-in">
+      <h2 class="section-title">Project Overview</h2>
+      <p class="section-content">
+        The Smart Traffic Flow Analyzer leverages <span class="highlight">computer vision</span> and <span class="highlight">machine learning</span>
+        to analyze live traffic footage and optimize traffic light timings dynamically. By monitoring vehicle density at intersections,
+        it reduces congestion and enhances urban mobility.
+      </p>
+    </div>
+
+    <!-- Features -->
+    <h2 class="section-title fade-in">Key Features</h2>
+    <div class="features-grid fade-in">
+      <div class="feature-card"><h3 class="feature-title">Live Traffic Monitoring</h3><p class="feature-description">Analyzes real-time video feed from traffic cameras.</p></div>
+      <div class="feature-card"><h3 class="feature-title">AI-based Vehicle Detection</h3><p class="feature-description">Counts vehicles using ML & OpenCV models.</p></div>
+      <div class="feature-card"><h3 class="feature-title">Adaptive Signal Control</h3><p class="feature-description">Adjusts signal timings based on congestion levels.</p></div>
+      <div class="feature-card"><h3 class="feature-title">Scalable Design</h3><p class="feature-description">Works across multiple junctions in smart cities.</p></div>
+    </div>
+
+    <!-- Tech Stack -->
+    <h2 class="section-title fade-in">Tech Stack</h2>
+    <div class="tech-stack fade-in">
+      <div class="tech-badge"><div class="tech-dot dot-python"></div><span>Python</span></div>
+      <div class="tech-badge"><div class="tech-dot dot-opencv"></div><span>OpenCV</span></div>
+      <div class="tech-badge"><div class="tech-dot dot-flask"></div><span>Flask</span></div>
+      <div class="tech-badge"><div class="tech-dot dot-ml"></div><span>Machine Learning</span></div>
+    </div>
+
+    <!-- Back Button ONLY -->
+    <div class="action-buttons fade-in">
+      <a href="../index.html" class="btn btn-outline">⬅ Back to Portfolio</a>
+    </div>
+
+    <!-- Badge -->
+    <div class="security-badge fade-in">
+      <div class="security-badge-content">Smart Cities • AI Traffic Control • Real-time Analytics</div>
+    </div>
+  </div>
+
+  <script>
+    // Fade-in Scroll Observer (same as index)
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

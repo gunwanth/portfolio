@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gunvanth Madabattula - AI/ML Engineer & Developer</title>
+  <meta name="description" content="Portfolio of Gunvanth Madabattula, an AI/ML Engineer and Developer from Visakhapatnam, India">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #f5f5f5;
+      line-height: 1.6;
+      overflow-x: hidden;
+
+      /* Ocean blue + blackish gradient */
+      background: radial-gradient(circle at top left, #003f88 0%, transparent 50%),
+                  radial-gradient(circle at bottom right, #001219 0%, transparent 50%),
+                  linear-gradient(135deg, #000814 0%, #001d3d 60%, #003566 100%);
+      background-attachment: fixed;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(0, 31, 61, 0.8);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      border-bottom: 1px solid #16405b;
+      transition: background 0.3s;
+      backdrop-filter: blur(8px);
+    }
+
+    .navbar.scrolled { background: rgba(0, 19, 29, 0.95); }
+
+    .logo { font-size: 1.6rem; font-weight: bold; color: #34a0a4; }
+
+    .nav-links { display: flex; list-style: none; gap: 2rem; }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #e0f4fd;
+      font-weight: 500;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background: #34a0a4;
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover { color: #34a0a4; }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* Frosted glass container panels */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    #about, #projects, #career, #skills, #contact {
+      background: rgba(255,255,255,0.06);
+      border-radius: 12px;
+      margin: 2rem 0;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 32px 0 rgba(0,60,100, 0.07);
+    }
+
+    section { padding: 5rem 0 3rem 0; }
+
+    h2 {
+      font-size: 2.2rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      color: #34a0a4;
+      letter-spacing: 2px;
+      font-weight: 700;
+    }
+
+    /* About Section */
+    .text-center { text-align: center; }
+
+    .profile-pic {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 4px solid #34a0a4;
+      margin-bottom: 1.5rem;
+      object-fit: cover;
+      background: #001d3d;
+    }
+
+    #typing-text {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #f5f5f5;
+      font-weight: bold;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background: #34a0a4;
+      color: #001d3d;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: 600;
+      transition: background 0.3s, color 0.3s;
+      box-shadow: 0 2px 6px 0 rgba(0,60,100,.1);
+      border: none;
+    }
+
+    .btn:hover { background: #168aad; color: #fff; }
+
+    /* Projects */
+    .project-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: rgba(0,14,20,0.75);
+      border: 1px solid #16405b;
+      border-radius: 10px;
+      padding: 2rem;
+      text-align: center;
+      transition: 0.3s;
+      box-shadow: 0 2px 12px 0 rgba(0,60,100, 0.10);
+      color: #f5f5f5;
+
+      /* FIX - equal height + spacing */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 250px;
+    }
+
+    .project-card h3 { color: #34a0a4; margin-bottom: 1rem; }
+
+    .project-card p {
+      flex-grow: 1;
+      margin-bottom: 1rem;
+    }
+
+    .project-card a.btn {
+      margin-top: auto;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(52,160,164,0.09);
+      border-color: #34a0a4;
+    }
+
+    /* Two Columns Layout */
+    .two-columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .column {
+      background: rgba(0,14,20,0.45);
+      padding: 2rem;
+      border-radius: 10px;
+      border: 1px solid #16405b;
+      transition: 0.3s;
+      color: #f5f5f5;
+      box-shadow: 0 2px 12px 0 rgba(0,60,100,.09);
+    }
+
+    .column:hover { transform: translateY(-5px); border-color: #34a0a4;}
+
+    .column h3 {
+      color: #34a0a4;
+      border-bottom: 2px solid #34a0a4;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .column ul { list-style: none; }
+
+    .column li {
+      margin-bottom: 1rem;
+      padding: 0.8rem;
+      border-left: 4px solid #34a0a4;
+      background: rgba(255,255,255,0.055);
+      color: #f5f5f5;
+    }
+
+    /* Contact */
+    #contact p { margin: 0.5rem 0; }
+    #contact a { color: #34a0a4; text-decoration: none; font-weight: 500;}
+    #contact a:hover { text-decoration: underline; color: #fff; }
+
+    /* Fade-in Animation */
+    .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      #typing-text { font-size: 1.8rem; }
+      .container { padding: 2rem 1rem; }
+      section { padding: 3rem 0 2rem 0;}
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="logo">Gunvanth</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#career">Internships & Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- About Section -->
+  <section id="about" class="fade-in">
+    <div class="container text-center">
+      <img src="assests/photo.jpg" alt="Gunvanth Madabattula" class="profile-pic">
+      <h1 id="typing-text">Gunvanth Madabattula</h1>
+      <p>
+        Dynamic 4th-year BTech student specializing in Artificial Intelligence and Machine Learning. 
+        Passionate about solving real-world problems through innovation, programming, and data-driven insights. 
+        Always eager to apply technical skills in creative and impactful ways.
+      </p>
+      <div class="buttons">
+        <a href="https://github.com/gunwanth" class="btn">GitHub</a>
+        <a href="https://www.linkedin.com/in/gunvanth-m" class="btn">LinkedIn</a>
+        <a href="assests/resume.pdf" class="btn" target="_blank">View Resume</a>
+        <a href="assests/resume.pdf" class="btn" download>Download Resume</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="fade-in">
+    <div class="container">
+      <h2>Projects</h2>
+      <div class="project-list">
+        <div class="project-card">
+          <h3>Smart Traffic Flow Analyzer</h3>
+          <p>Real-time traffic monitoring using YOLOv8n and Python.</p>
+          <a href="projects/traffic.html" class="btn">View Details</a>
+        </div>
+        <div class="project-card">
+          <h3>Disease Prediction Model</h3>
+          <p>AI-powered Flask app for predicting diseases from symptoms.</p>
+          <a href="projects/disease.html" class="btn">View Details</a>
+        </div>
+        <div class="project-card">
+          <h3>Dine Space</h3>
+          <p>Full-stack restaurant discovery app with Zomato datasets.</p>
+          <a href="projects/dinespace.html" class="btn">View Details</a>
+        </div>
+        <div class="project-card">
+          <h3>Gesture-based App Launcher</h3>
+          <p>Secure app launcher with gesture and voice control.</p>
+          <a href="projects/gesture.html" class="btn">View Details</a>
+        </div>
+        <div class="project-card">
+          <h3>Phishing Email Detection App</h3>
+          <p>Streamlit app integrated with Gmail API for phishing detection.</p>
+          <a href="projects/phishing.html" class="btn">View Details</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Career -->
+  <section id="career" class="fade-in">
+    <div class="container">
+      <h2>Internships & Experience</h2>
+      <div class="two-columns">
+        <div class="column">
+          <h3>Internships</h3>
+          <ul>
+            <li><strong>GEN AI-ML Virtual Internship</strong>, AICTE Eduskills Cohort-8 (Apr–Jun 2024)  
+              <p>Worked on Generative AI use cases, implemented ML models, and explored prompt engineering techniques with practical labs.</p></li>
+            <li><strong>Google Cloud Generative AI Virtual Internship</strong>, AICTE Eduskills Cohort-9 (Jul–Sep 2024)  
+              <p>Hands-on with Google Cloud tools, built AI workflows, deployed apps, and earned Google Cloud Study Jam badges.</p></li>
+            <li><strong>Data Analyst Intern</strong>, Naveen PVC Bend Works & Marketing Agencies (Jan–Mar 2025)  
+              <p>Analyzed sales/marketing data, created dashboards in Power BI, and supported decision-making.</p></li>
+          </ul>
+        </div>
+        <div class="column">
+          <h3>Experience</h3>
+          <ul>
+            <li><strong>Accenture</strong> – Data Analytics Virtual Experience (Forage)  
+              <p>Data cleaning, visualization, and generating insights for business strategy.</p></li>
+            <li><strong>PwC</strong> – Power BI Data Analyst Simulation  
+              <p>Developed dashboards, performed data transformation, delivered client-ready reports.</p></li>
+            <li><strong>Google Cloud Study Jams</strong>  
+              <p>Completed Generative AI & Cloud Computing labs, covering model deployment and cloud services.</p></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="fade-in">
+    <div class="container">
+      <h2>Skills & Upskilling</h2>
+      <div class="two-columns">
+        <div class="column">
+          <h3>My Skills & Abilities</h3>
+          <ul>
+            <li><strong>Programming:</strong> Python, Java, C++, SQL</li>
+            <li><strong>Machine Learning:</strong> Data preprocessing, model training, Flask integration</li>
+            <li><strong>Data Analytics:</strong> Power BI, dashboards, visualization</li>
+            <li><strong>Web Development:</strong> Flask apps, REST APIs</li>
+            <li><strong>AI Tools:</strong> Prompt Engineering, Generative AI workflows</li>
+            <li><strong>Problem Solving:</strong> DSA & algorithmic thinking</li>
+          </ul>
+        </div>
+        <div class="column">
+          <h3>How I'm Upskilling</h3>
+          <ul>
+            <li>Deepening expertise in Deep Learning (CNNs, RNNs, Transformers)</li>
+            <li>Exploring Reinforcement Learning & advanced AI research</li>
+            <li>Expanding into Cloud AI (AWS, GCP, Azure)</li>
+            <li>Improving System Design & backend scalability</li>
+            <li>Strengthening Cybersecurity (phishing, secure apps)</li>
+            <li>Participating in hackathons & open-source projects</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="fade-in">
+    <div class="container text-center">
+      <h2>Contact Me</h2>
+      <p>Email: <a href="mailto:gunvanth752004@gmail.com">gunvanth752004@gmail.com</a></p>
+      <p>Phone: +91 6303157119</p>
+    </div>
+  </section>
+
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Fade-in effect
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Typing Effect
+    const typingText = document.getElementById('typing-text');
+    const original = typingText.textContent;
+    typingText.textContent = '';
+    let i = 0;
+    function typeWriter() {
+      if (i < original.length) {
+        typingText.textContent += original.charAt(i);
+        i++;
+        setTimeout(typeWriter, 100);
+      }
+    }
+    setTimeout(typeWriter, 500);
+  </script>
+</body>
+</html>

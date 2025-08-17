@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gesture-Based App Launcher - Gunvanth Madabattula</title>
+  <style>
+    /* Reset & Base */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at top left, #003f88 0%, transparent 50%),
+                  radial-gradient(circle at bottom right, #001219 0%, transparent 50%),
+                  linear-gradient(135deg, #000814 0%, #001d3d 60%, #003566 100%);
+      color: #f5f5f5;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Floating Background Orbs */
+    .background-elements { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+    .floating-orb { position: absolute; border-radius: 50%; filter: blur(40px); animation: float 7s ease-in-out infinite; mix-blend-mode: screen; opacity: 0.45;}
+    .orb-1 { width: 300px; height: 300px; background: radial-gradient(circle, #34a0a4, #168aad); top: -120px; right: -120px; animation-delay: 0s; }
+    .orb-2 { width: 280px; height: 280px; background: radial-gradient(circle,#003566,#0096c7); bottom: -160px; left: -120px; animation-delay: 2s; }
+    .orb-3 { width: 220px; height: 220px; background: radial-gradient(circle, #001d3d, #34a0a4); top: 200px; left: 55%; animation-delay: 4s; }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0) scale(1); opacity: 0.35; }
+      50% { transform: translateY(-20px) scale(1.08); opacity: 0.55; }
+    }
+
+    /* Container */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 6vw, 3.5rem);
+      text-align: center;
+      margin-bottom: 2rem;
+      background: linear-gradient(135deg, #ffffff, #34a0a4, #168aad);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #34a0a4, #168aad);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+    }
+
+    p, li {
+      font-size: 1.05rem;
+      color: #e0f4fd;
+      line-height: 1.8;
+    }
+
+    ul { margin-left: 1.5rem; margin-bottom: 1.5rem; }
+
+    /* Glass Sections */
+    section {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    section:hover { 
+      transform: translateY(-5px); 
+      border-color: #34a0a4; 
+      box-shadow: 0 12px 20px rgba(52,160,164,0.2); 
+    }
+
+    /* Button Style */
+    .btn {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-weight: 600;
+      text-decoration: none;
+      color: #f5f5f5;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(52,160,164,0.5);
+      transition: all 0.3s;
+    }
+    .btn:hover {
+      background: linear-gradient(135deg, #34a0a4, #168aad);
+      box-shadow: 0 8px 20px rgba(52,160,164,0.3);
+      transform: translateY(-3px);
+      color: #fff;
+    }
+
+    /* Fade-in Animation */
+    .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <!-- Floating Background -->
+  <div class="background-elements">
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+  </div>
+
+  <div class="container">
+    <h1 class="fade-in">Gesture-Based App Launcher</h1>
+
+    <section class="fade-in">
+      <h2>Overview</h2>
+      <p>
+        The Gesture-Based App Launcher is an innovative project that combines <strong>computer vision</strong>, 
+        <strong>voice recognition</strong>, and <strong>biometric authentication</strong> to create a secure 
+        and hands-free way of launching applications. It demonstrates how <strong>human-computer interaction (HCI)</strong> 
+        can move beyond traditional input devices like keyboards and mice.
+      </p>
+    </section>
+
+    <section class="fade-in">
+      <h2>Why it matters</h2>
+      <p>
+        This project highlights the future of interaction with devices by using natural input methods such as gestures 
+        and voice. It also ensures security through <strong>facial recognition</strong> and <strong>voice authentication</strong>, 
+        making it suitable for both personal use and enterprise environments.
+      </p>
+    </section>
+
+    <section class="fade-in">
+      <h2>Features</h2>
+      <ul>
+        <li><strong>Gesture Recognition:</strong> Uses a camera to detect and interpret hand gestures for app selection and launching.</li>
+        <li><strong>Voice Commands:</strong> Provides a hands-free experience by allowing apps to be launched using spoken commands.</li>
+        <li><strong>Multi-layered Security:</strong> Ensures safe access using both facial recognition and voice authentication.</li>
+        <li><strong>Graphical Interface:</strong> Built with Tkinter for a user-friendly and responsive GUI.</li>
+        <li><strong>Gesture Click Mechanism:</strong> Users can “click” on applications using hand gestures detected by the system.</li>
+        <li><strong>Expandable Design:</strong> Integrated with a web signup/login system and adaptable for more advanced controls.</li>
+      </ul>
+    </section>
+
+    <section class="fade-in">
+      <h2>Tech Stack</h2>
+      <ul>
+        <li>Python</li>
+        <li>OpenCV</li>
+        <li>Tkinter</li>
+        <li>SpeechRecognition</li>
+        <li>Flask (for web integration)</li>
+        <li>Machine Learning for face and voice authentication</li>
+      </ul>
+    </section>
+
+    <div class="fade-in" style="text-align:center;">
+      <a href="../index.html" class="btn">⬅ Back to Home</a>
+    </div>
+  </div>
+
+  <script>
+    // Scroll-triggered fade-in observer (same as index page)
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

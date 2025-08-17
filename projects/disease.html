@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disease Prediction & Analysis - Gunvanth Madabattula</title>
+  <style>
+    /* Reset & Base */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at top left, #003f88 0%, transparent 50%),
+                  radial-gradient(circle at bottom right, #001219 0%, transparent 50%),
+                  linear-gradient(135deg, #000814 0%, #001d3d 60%, #003566 100%);
+      color: #f5f5f5;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Floating Background Orbs */
+    .background-elements { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+    .floating-orb { position: absolute; border-radius: 50%; filter: blur(40px); animation: float 7s ease-in-out infinite; mix-blend-mode: screen; opacity: 0.4;}
+    .orb-1 { width: 300px; height: 300px; background: radial-gradient(circle, #34a0a4, #168aad); top: -120px; right: -120px; animation-delay: 0s; }
+    .orb-2 { width: 280px; height: 280px; background: radial-gradient(circle,#003566,#0096c7); bottom: -160px; left: -120px; animation-delay: 2s; }
+    .orb-3 { width: 230px; height: 230px; background: radial-gradient(circle, #001d3d, #34a0a4); top: 200px; left: 55%; animation-delay: 4s; }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0) scale(1); opacity: 0.35; }
+      50% { transform: translateY(-20px) scale(1.08); opacity: 0.55; }
+    }
+
+    /* Container */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 6vw, 3.5rem);
+      text-align: center;
+      margin-bottom: 2rem;
+      background: linear-gradient(135deg, #ffffff, #34a0a4, #168aad);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #34a0a4, #168aad);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+    }
+
+    p, li {
+      font-size: 1.05rem;
+      color: #e0f4fd;
+      line-height: 1.8;
+    }
+
+    ul { margin-left: 1.5rem; margin-bottom: 1.5rem; }
+
+    /* Glass Sections */
+    section {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    section:hover { 
+      transform: translateY(-5px); 
+      border-color: #34a0a4; 
+      box-shadow: 0 12px 20px rgba(52,160,164,0.2); 
+    }
+
+    /* Button Style */
+    .btn {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-weight: 600;
+      text-decoration: none;
+      color: #f5f5f5;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(52,160,164,0.5);
+      transition: all 0.3s;
+    }
+    .btn:hover {
+      background: linear-gradient(135deg, #34a0a4, #168aad);
+      box-shadow: 0 8px 20px rgba(52,160,164,0.3);
+      transform: translateY(-3px);
+      color: #fff;
+    }
+
+    /* Fade-in Animation */
+    .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <!-- Floating Background -->
+  <div class="background-elements">
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+  </div>
+
+  <div class="container">
+    <h1 class="fade-in">Disease Prediction & Analysis</h1>
+
+    <section class="fade-in">
+      <h2>Overview</h2>
+      <p>
+        The Disease Prediction & Analysis system is a <strong>Flask-based web application</strong> that uses 
+        <strong>machine learning models</strong> to predict possible diseases based on user symptoms. 
+        It combines multiple classifiers and an ensemble approach to achieve accurate and reliable predictions, 
+        while also providing users with essential health-related information.
+      </p>
+    </section>
+
+    <section class="fade-in">
+      <h2>Why it matters</h2>
+      <p>
+        Early detection of diseases can play a vital role in timely treatment and better healthcare outcomes. 
+        This project provides an accessible tool that allows users to get preliminary health insights before 
+        consulting a medical professional, making it a useful application in <strong>AI for healthcare</strong>.
+      </p>
+    </section>
+
+    <section class="fade-in">
+      <h2>Features</h2>
+      <ul>
+        <li><strong>User Authentication:</strong> Login/Signup system with secure session handling.</li>
+        <li><strong>Multiple ML Models:</strong> Predictions from Decision Tree, Random Forest, KNN, Naïve Bayes, SVM, and a Voting Classifier.</li>
+        <li><strong>Performance Metrics:</strong> Displays accuracy, precision, recall, and F1-score for each model.</li>
+        <li><strong>Data Visualization:</strong> Graphical analysis of symptom–disease datasets using charts and plots.</li>
+        <li><strong>Disease Information:</strong> Provides details on precautions, treatment methods, severity levels, and fatality scores.</li>
+        <li><strong>User-Friendly Interface:</strong> Simple design to ensure accessibility for non-technical users.</li>
+      </ul>
+    </section>
+
+    <section class="fade-in">
+      <h2>Tech Stack</h2>
+      <ul>
+        <li>Python</li>
+        <li>Flask</li>
+        <li>scikit-learn</li>
+        <li>Pandas, NumPy</li>
+        <li>Matplotlib</li>
+        <li>Chart.js</li>
+        <li>SQLite</li>
+      </ul>
+    </section>
+
+    <div class="fade-in" style="text-align:center;">
+      <a href="../index.html" class="btn">⬅ Back to Home</a>
+    </div>
+  </div>
+
+  <script>
+    // Scroll-triggered fade-in observer (same as index page)
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
